@@ -1,0 +1,12 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block content %}
+    <h1>Posts List</h1>
+    <ul>
+        <li>
+            <p>Post 1</p>
+            <a href="{{ path('posts.show', {'id': 1}) }}">View Post</a>
+        </li>
+    </ul>
+    
+{% endblock %}

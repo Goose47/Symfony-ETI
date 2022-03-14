@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Application{% endblock %}</title>
+</head>
+<body>
+{% block body %}
+    <div id="sidebar">
+        {% block sidebar %}
+            <ul>
+                <li><a href="{{ path('home') }}">Home</a></li>
+                <li><a href="{{ path('login') }}">Log In</a></li>
+                <li><a href="{{ path('posts.browse') }}">Posts</a></li>
+            </ul>
+        {% endblock %}
+    </div>
+
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+{% endblock %}
+</body>
+</html>

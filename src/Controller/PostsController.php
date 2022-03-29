@@ -49,6 +49,8 @@ class PostsController extends AbstractController
             $manager->flush();
             // ... perform some action, such as saving the task to the database
 
+            $this->addFlash('notice', 'A new post has been added successfully!');
+
             return $this->redirectToRoute('posts.browse');
         }
 

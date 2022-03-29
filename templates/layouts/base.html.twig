@@ -5,6 +5,14 @@
     <title>{% block title %}My Application{% endblock %}</title>
 </head>
 <body>
+<p>
+    {% for message in app.flashes('notice') %}
+    <div class="flash-notice">
+        {{ message }}
+    </div>
+    {% endfor %}
+</p>
+<br>
 {% block body %}
     <div id="sidebar">
         {% block sidebar %}
@@ -13,6 +21,10 @@
                 <li><a href="{{ path('login') }}">Log In</a></li>
                 <li><a href="{{ path('posts.browse') }}">Posts</a></li>
                 <li><a href="{{ path('categories.browse') }}">Categories</a></li>
+                {% if is_granted('ROLE_USER') %}
+                    <p></p>
+                    <li><a href="{{ path('app_logout') }}">Logout</a></li>
+                {% endif %}
             </ul>
         {% endblock %}
     </div>

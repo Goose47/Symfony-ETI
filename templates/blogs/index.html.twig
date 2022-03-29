@@ -2,11 +2,21 @@
 
 {% block content %}
     <h1>Posts List</h1>
+
+    <h2><a href="{{ path('posts.add') }}">Add a post</a></h2>
+
     <ul>
-        <li>
-            <p>Post 1</p>
-            <a href="{{ path('posts.show', {'id': 1}) }}">View Post</a>
-        </li>
+        {% for post in posts %}
+            <li>
+                <h3>{{ post.title }}</h3>
+                <p>{{ post.text }}</p>
+                <a href="{{ path('posts.show', {'id': post.id}) }}">View Post</a>
+                {% if post.category is not null %}
+                    <p>Post category: {{ post.category.name }}</p>
+                {% endif %}
+                <hr>
+            </li>
+        {% endfor %}
     </ul>
     
 {% endblock %}

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Post;
 use App\Form\Type\PostType;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,18 +23,20 @@ class PostsController extends AbstractController
         ]);
     }
 
-    public function show(int $id)
+    public function show(Post $post)
     {
-        $blog = '';
+        $comments = $post->getComments();
 
         return $this->render('blogs/view.html.twig', [
-            'blog' => $blog,
-            'id' => $id
+            'post' => $post,
+            'comments' => $comments
         ]);
     }
 
     public function newPost(Request $request, ManagerRegistry $doctrine)
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $post = new Post();
 
         $form = $this->createForm(PostType::class, $post);
@@ -43,6 +46,8 @@ class PostsController extends AbstractController
             // $form->getData() holds the submitted values
             // but, the original `$task` variable has also been updated
             $post = $form->getData();
+
+            $post->setUserId($this->getUser());
 
             $manager = $doctrine->getManager();
             $manager->persist($post);

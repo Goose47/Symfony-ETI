@@ -3,7 +3,9 @@
 {% block content %}
     <h1>Categories List</h1>
 
-    <h2><a href="{{ path('categories.add') }}">Add a category</a></h2>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <h2><a href="{{ path('categories.add') }}">Add a category</a></h2>
+    {% endif %}
 
     <ul>
         {% for category in categories %}

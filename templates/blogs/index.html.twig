@@ -3,7 +3,9 @@
 {% block content %}
     <h1>Posts List</h1>
 
-    <h2><a href="{{ path('posts.add') }}">Add a post</a></h2>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <h2><a href="{{ path('posts.add') }}">Add a post</a></h2>
+    {% endif %}
 
     <ul>
         {% for post in posts %}
